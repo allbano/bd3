@@ -1,17 +1,20 @@
 services:
-  db:
+  postgresql16:
     image: postgres:16-alpine
     container_name: pg16
     hostname: pg16alpine
     environment:
+      DBPOSTGRES: projetodw
       POSTGRES_USER: equipefoda
-      POSTGRES_PASSWORD: equipefoda
+      POSTGRES_PASSWORD: "equipefoda"
     ports:
       - 45432:5432
     volumes:
-      - pg-data:/var/lib/postgresql/data
+      - /home/albano/github/bd3/projetodw/init.sql:/tmp/init.sql
+      - /home/albano/github/bd3/projetodw/init.sh:/docker-entrypoint-initdb.d/init.sh
+    networks:
+      - projetodw
 
-
-volumes:
-  pg-data:
-    name: pg-data
+networks:
+  projetodw:
+    name: "projetodw"
