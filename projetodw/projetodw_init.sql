@@ -73,26 +73,26 @@ BEGIN
 
     -- Tabela tb005_006_funcionarios_cargos
     CREATE TABLE tb005_006_funcionarios_cargos (
-        tb005_matricula NUMERIC(10) NOT NULL,
-        tb006_cod_cargo NUMERIC(10) NOT NULL,
+        tb005_matricula INTEGER NOT NULL,
+        tb006_cod_cargo INTEGER NOT NULL,
         tb005_006_valor_cargo NUMERIC(10,2) NOT NULL,
         tb005_006_perc_comissao_cargo NUMERIC(5,2) NOT NULL,
-        tb005_006_data_promocao TIMESTAMP NOT NULL,
+        tb005_006_data_promocao DATE NOT NULL,
         CONSTRAINT XPKtb005_006_funcionarios_cargos PRIMARY KEY (tb005_matricula, tb006_cod_cargo)
     );
 
     -- Tabela tb005_funcionarios
     CREATE TABLE tb005_funcionarios (
         tb005_matricula SERIAL,
-        tb004_cod_loja NUMERIC(10) NOT NULL,
-        tb003_cod_endereco NUMERIC(10) NOT NULL,
+        tb004_cod_loja INTEGER NOT NULL,
+        tb003_cod_endereco INTEGER NOT NULL,
         tb005_nome_completo VARCHAR(255) NOT NULL,
-        tb005_data_nascimento TIMESTAMP NOT NULL,
+        tb005_data_nascimento DATE NOT NULL,
         tb005_CPF VARCHAR(17) NOT NULL,
         tb005_RG VARCHAR(15) NOT NULL,
         tb005_status VARCHAR(20) NOT NULL,
-        tb005_data_contratacao TIMESTAMP NOT NULL,
-        tb005_data_demissao TIMESTAMP,
+        tb005_data_contratacao DATE NOT NULL,
+        tb005_data_demissao DATE,
     CONSTRAINT XPKtb005_funcionarios PRIMARY KEY (tb005_matricula)
     );
 
@@ -108,8 +108,8 @@ BEGIN
         tb010_012_cod_venda SERIAL,
         tb010_cpf NUMERIC(15) NOT NULL,
         tb012_cod_produto NUMERIC(10) NOT NULL,
-        tb005_matricula NUMERIC(10) NOT NULL,
-        tb010_012_data TIMESTAMP NOT NULL,
+        tb005_matricula INTEGER NOT NULL,
+        tb010_012_data date NOT NULL,
         tb010_012_quantidade NUMERIC(10) NOT NULL,
         tb010_012_valor_unitario NUMERIC(12,4) NOT NULL,
         CONSTRAINT XPKtb010_012_vendas PRIMARY KEY (tb010_012_cod_venda, tb005_matricula, tb010_cpf, tb012_cod_produto)
@@ -136,25 +136,14 @@ BEGIN
         tb011_logins VARCHAR(255) NOT NULL,
         tb010_cpf NUMERIC(15) NOT NULL,
         tb011_senha VARCHAR(255) NOT NULL,
-        tb011_data_cadastro TIMESTAMP,
+        tb011_data_cadastro date,
         CONSTRAINT XPKtb011_logins PRIMARY KEY (tb011_logins)
-    );
-
-    -- Tabela tb012_017_compras
-    CREATE TABLE tb012_017_compras (
-        tb012_017_cod_compra SERIAL,
-        tb012_cod_produto NUMERIC(10) NOT NULL,
-        tb017_cod_fornecedor NUMERIC(10) NOT NULL,
-        tb012_017_data TIMESTAMP,
-        tb012_017_quantidade NUMERIC(10),
-        tb012_017_valor_unitario NUMERIC(12,2),
-        CONSTRAINT XPKtb017_compras PRIMARY KEY (tb012_017_cod_compra, tb012_cod_produto, tb017_cod_fornecedor)
     );
 
     -- Tabela tb012_produtos
     CREATE TABLE tb012_produtos (
         tb012_cod_produto NUMERIC(10) NOT NULL,
-        tb013_cod_categoria NUMERIC(10) NOT NULL,
+        tb013_cod_categoria INTEGER NOT NULL,
         tb012_descricao VARCHAR(255) NOT NULL,
         CONSTRAINT XPKtb012_produtos PRIMARY KEY (tb012_cod_produto)
     );
@@ -165,6 +154,20 @@ BEGIN
         tb013_descricao VARCHAR(255) NOT NULL,
         CONSTRAINT XPKtb013_categorias PRIMARY KEY (tb013_cod_categoria)
     );
+-- Até aqui tá tudo arrumado!
+    -- Tabela tb012_017_compras
+    CREATE TABLE tb012_017_compras (
+        tb012_017_cod_compra SERIAL,
+        tb012_cod_produto NUMERIC(10) NOT NULL,
+        tb017_cod_fornecedor integer NOT NULL,
+        tb012_017_data date,
+        tb012_017_quantidade NUMERIC(10),
+        tb012_017_valor_unitario NUMERIC(12,2),
+        CONSTRAINT XPKtb017_compras PRIMARY KEY (tb012_017_cod_compra, tb012_cod_produto, tb017_cod_fornecedor)
+    );
+
+
+
 
     -- Tabela tb014_prd_alimentos
     CREATE TABLE tb014_prd_alimentos (
@@ -173,7 +176,7 @@ BEGIN
         tb014_detalhamento VARCHAR(255) NOT NULL,
         tb014_unidade_medida VARCHAR(255) NOT NULL,
         tb014_num_lote VARCHAR(255),
-        tb014_data_vencimento TIMESTAMP,
+        tb014_data_vencimento date,
         tb014_valor_sugerido NUMERIC(10,2),
         CONSTRAINT XPKtb014_prd_alimentos PRIMARY KEY (tb014_cod_prd_alimentos, tb012_cod_produto)
     );
@@ -207,7 +210,7 @@ BEGIN
         tb017_razao_social VARCHAR(255),
         tb017_nome_fantasia VARCHAR(255),
         tb017_fone VARCHAR(15),
-        tb003_cod_endereco NUMERIC(10),
+        tb003_cod_endereco integer,
         CONSTRAINT XPKtb017_fornecedor PRIMARY KEY (tb017_cod_fornecedor)
     );
 
