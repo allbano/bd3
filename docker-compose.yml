@@ -1,0 +1,38 @@
+services:
+  lojadevarejo:
+    image: postgres:16-alpine
+    container_name: lojadevarejo
+    hostname: lojadevarejo
+    environment:
+      POSTGRES_DB: lojadevarejo
+      POSTGRES_USER: equipefoda
+      POSTGRES_PASSWORD: "equipefoda"
+    ports:
+      - 55432:5432
+    volumes:
+      - ./projetodw/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./projetodw/backup-full.sql:/tmp/backup-full.sql
+    networks:
+      - projetodw_bd3
+  projetodw:
+    image: postgres:17-alpine
+    container_name: projetodw
+    hostname: projetodw
+    environment:
+      PGPORT: 5434
+      POSTGRES_DB: projetodw
+      POSTGRES_USER: equipefoda
+      POSTGRES_PASSWORD: "equipefoda"
+    ports:
+      - 55434:5434
+    volumes:
+      - ./projetodw/projetodw.sh:/docker-entrypoint-initdb.d/projetodw.sh
+      - ./projetodw/projetodw-full.sql:/tmp/projetodw-full.sql
+    networks:
+      - projetodw_bd3
+
+
+networks:
+  projetodw_bd3:
+    name: "projetodw_bd3"
+    driver: bridge
