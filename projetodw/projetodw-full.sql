@@ -25,7 +25,9 @@ $$;
 DO 
 $$
 BEGIN
-  IF NOT EXISTS (SELECT 1 FROM pg_user_mappings WHERE srvname = 'lojadevarejo' AND umuser = (SELECT usesysid FROM pg_user WHERE usename = 'equipefoda')) THEN
+  IF NOT EXISTS (SELECT 1 FROM pg_user_mappings 
+      WHERE srvname = 'lojadevarejo' 
+      AND umuser = (SELECT usesysid FROM pg_user WHERE usename = 'equipefoda')) THEN
     CREATE USER MAPPING FOR equipefoda
     SERVER lojadevarejo
     OPTIONS (user 'equipefoda', password 'equipefoda');
@@ -80,13 +82,6 @@ CREATE TABLE dim_Lojas (
     lj_rua VARCHAR(255),
     lj_cidade VARCHAR(50),
     CONSTRAINT pk_dim_loja PRIMARY KEY (lj_id)
-);
-
-CREATE TABLE dim_Tempo (
-    tm_dia INTEGER,
-    tm_mes INTEGER,
-    tm_ano INTEGER,
-    CONSTRAINT pk_dim_tempo PRIMARY KEY (tm_dia,tm_mes,tm_ano)
 );
 
 CREATE TABLE dim_Produto (
