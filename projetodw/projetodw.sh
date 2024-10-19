@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # ------------------------------------------------------------------------------- # 
-# Script      : entrypoint
+# Script      : projetodw.sh
 # Description : 
 # Version     : 0.1
 # Author      : Albano Roberto Drescher Von Maywitz 
-# Data        : 19 de julho de 2024
+# Data        : 17 de outubro de 2024
 # ------------------------------------------------------------------------------- # 
 # Use : 
 # ------------------------------------------------------------------------------- # 
@@ -18,10 +18,7 @@
 
 set -e
 # Executa o arquivo init.sql usando psql
-# psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" -c "CREATE DATABASE $POSTGRES_DB;"
-psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -f "/tmp/backup-full.sql"
+psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "$POSTGRES_DB" -f "/tmp/projetodw-full.sql"
 
 # Executa o comando original do entrypoint do PostgreSQL
 exec "$@"
-
-
