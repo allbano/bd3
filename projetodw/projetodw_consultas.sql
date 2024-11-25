@@ -22,10 +22,13 @@ select * from public.tb999_log tl;
 SELECT pg_size_pretty(pg_database_size('projetodw'));
 
 
+select * from fat_lucro fl;
+select * from fat_vendas fv;
 
 -- 4.1. Quantidade de vendas agrupadas por tipo e categoria.
 SELECT
-	sum(v.vd_quantidade_produto),
+	--sum(v.vd_quantidade_produto),
+v.vd_quantidade_produto,
 	t.tp_descricao as Tipo,
 	c.ct_descricao as Categoria
 FROM public.fat_vendas v 
@@ -38,8 +41,8 @@ WHERE
 	AND v.vd_lj_id_lojas IS NULL
 	AND v.vd_ct_id_categoria IS NOT NULL
 	AND v.vd_tp_id_tipo IS NOT null
-group by Tipo, Categoria
-ORDER BY Tipo;
+--group by Tipo, Categoria
+ORDER BY Categoria;
 
 
 

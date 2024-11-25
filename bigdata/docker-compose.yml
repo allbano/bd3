@@ -1,0 +1,25 @@
+services:
+  projetodw:
+    image: ravendb/ravendb:6.2-ubuntu-latest
+    container_name: ravendb
+    hostname: ubuntu-ravendb
+    environment:
+      - RAVEN_License_Eula_Accepted=true
+      - RAVEN_ARGS=--Setup.Mode=None
+      - RAVEN_Logs_Mode=Information
+      - RAVEN_Security_UnsecuredAccessAllowed=PublicNetwork
+      - RAVEN_PublicServerUrl=http://raven0:8080
+      - RAVEN_PublicServerUrl_Tcp=tcp://raven0:38888
+    ports:
+      - 8080:8080
+      - 38880:38888
+    volumes:
+      - ./projetodw/projetodw.sh:/docker-entrypoint-initdb.d/projetodw.sh
+      - ./projetodw/projetodw-full.sql:/tmp/projetodw-full.sql
+    networks:
+      - bigdata_ravendb
+
+networks:
+  bigdata_ravendb:
+    name: "bigdata_ravendb"
+    driver: bridge
